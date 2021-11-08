@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+    <head>
+        <title> <%= page %></title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet", href="/stylesheets/style.css">
+    </head>
+
+    <body>
+        <div class="header">
+          <p><%= title %></p>
+        </div>
+        
+        <div class="app-body">
+          <div class="vertical-nav-bar">
+              <ul class="nav-list">
+                  <li><a href="/catalog">Home</a></li>
+                  <li><a href="/catalog/books">View All Books</a></li>
+                  <li><a href="/catalog/authors"> View All Authors</a></li>
+                  <li><a href="/catalog/genres"> View All Genres</a></li>
+                  <li><a href="/catalog/bookinstances"> View All Book-Instances</a></li>
+                  <br><br>
+                  <li><a href="/catalog/author/create">Create New Author</a></li>
+                  <li><a href="/catalog/book/create">Create New Book</a></li>
+                  <li><a href="/catalog/bookinstance/create">Create New Book Instance</a></li>
+                  <li><a href="/catalog/genre/create">Create New Genre</a></li>
+              </ul>
+          </div>
+        <div class="display-area">
+            <h1><%= page %></h1>
+        <div class="book-form">
+            
+            <form method=POST action="">
+
+                <label for="title">Title:</label><br>
+                <input type="text" required=true name="title" placeholder="Book Title" 
+                <% if(typeof(book)=='object' && book) {  %>
+                    value = "<%= book.title %>" 
+                    <% }%>><br>
+                    
+                    <label for="author">Author:</label><br>
+                    <select name="author" required=true>
+                        <option></option>
+                        <% for (let i=0;i<authors.length;i++) { %>
+
+                            <% if(typeof(book)=='object' && book) { %>
+                            <option value= <%= authors[i]._id%> 
+                                <% if (authors[i]._id.toString()===book.author._id.toString()) {%>
+                                    selected= <%= authors[i].name%>
+                                <% } %>>
+                                <%= authors[i].name %> </option>
+                            <% } %>
+                            <% if(!(typeof(book)=='object' && book)) { %>
+                            <option value= <%= authors[i]._id %>> <%= authors[i].name %></option>
+                            <% } %>
+                        <% } %>
+                    </select><br>
+
+                    <label for="summary">Summary:</label><br>
+                    <% if(typeof(book)=='object' && book) {%>
+                        <textarea rows=10 cols=100 required=true name="summary"><%= book.summary%></textarea> 
+                        <% }%>
+                        <% if(!(typeof(book)=='object' && book)) {%>
+                            <textarea rows=10 cols=100 required=true name="summary" placeholder="Enter Book Summary"></textarea> 
+                            <% }%>
+                    <br>
+
+                    <label for="isbn">ISBN:</label><br>
+                    <input type="text" required=true name="isbn" placeholder="ISBN Number" 
+                    value= <% if(typeof(book)=='object' && book) {  %>
+                        <%= book.isbn %> 
+                        <% }%>><br>
+                    
+                    <label>Genre:</label><br>
+                    <% for(let j=0; j<genres.length;j++) { %>
+                    <input type="checkbox" name= "genre" id=<%= genres[j]._id %>
+                   
+                        value= <%= genres[j]._id %> 
+                        <% if(genres[j].checked) { %>
+                         checked= true
+                         <% } %>
+                    >
+
+                        
+                    <label for=<%= genres[j]._id%>> <%= genres[j].name %></label>
+
+                    <% } %>    
+                    <br>
+                <input type="submit">
+            </form>
+
+
+            <% if(typeof(errors)=='object' && errors.length>0) { %>
+                <ul>
+                    <% for(let i=0;i<errors.length;i++) {%>
+                        <li><%= errors[i].msg %></li>
+                    <% }%>
+                </ul>
+
+                <% }%>
+        </div>
+        </div>
+        </div>
+    </body>
+</html>

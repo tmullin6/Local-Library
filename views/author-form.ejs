@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+    <head>
+        <title> <%= page %></title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet", href="/stylesheets/style.css">
+    </head>
+
+    <body>
+        <div class="header">
+          <p><%= title %></p>
+        </div>
+        
+        <div class="app-body">
+          <div class="vertical-nav-bar">
+              <ul class="nav-list">
+                  <li><a href="/catalog">Home</a></li>
+                  <li><a href="/catalog/books">View All Books</a></li>
+                  <li><a href="/catalog/authors"> View All Authors</a></li>
+                  <li><a href="/catalog/genres"> View All Genres</a></li>
+                  <li><a href="/catalog/bookinstances"> View All Book-Instances</a></li>
+                  <br><br>
+                  <li><a href="/catalog/author/create">Create New Author</a></li>
+                  <li><a href="/catalog/book/create">Create New Book</a></li>
+                  <li><a href="/catalog/bookinstance/create">Create New Book Instance</a></li>
+                  <li><a href="/catalog/genre/create">Create New Genre</a></li>
+              </ul>
+          </div>
+        <div class="display-area">
+            <h1>Add New Author to Library</h1>
+        <div class="author-form">
+            
+            <form method=POST action="">
+
+                <label for="first_name">First Name:</label><br>
+                <input type="text" name="first_name" placeholder="Enter Author First Name" 
+                value= <% if(typeof(author)=='object' && author) {  %>
+                    <%= author.first_name %> 
+                    <% }%>><br>
+                    
+                    <label for="last_name">Last Name:</label><br>
+                    <input type="text" name="last_name" placeholder="Enter Author Last Name" 
+                    value= <% if(typeof(author)=='object' && author) {  %>
+                        <%= author.last_name %> 
+                        <% }%>><br>
+
+                    <label for="date_of_birth">Date of Birth:</label><br>
+                    <input type="date" name="date_of_birth" placeholder="Enter Author Birth Date" 
+                    value= <% if(typeof(author)=='object' && author) {  %>
+                        <%= author.formattedBirthDate %> 
+                        <% }%>><br>
+
+                    <label for="date_of_death">Date of Death:</label><br>
+                    <input type="date" name="date_of_death" placeholder="If Applicable, Enter Death Date" 
+                    value= <% if(typeof(author)=='object' && author) {  %>
+                        <%= author.formattedDeathDate %> 
+                        <% }%>><br>
+                        
+                <input type="submit">
+            </form>
+
+            <% if(typeof(errors)=='object' && errors.length>0) { %>
+                <ul>
+                    <% for(let i=0;i<errors.length;i++) {%>
+                        <li><%= errors[i].msg %></li>
+                    <% }%>
+                </ul>
+
+                <% }%>
+        </div>
+        </div>
+        </div>
+    </body>
+</html>

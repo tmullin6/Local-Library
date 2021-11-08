@@ -29,23 +29,17 @@
             </ul>
         </div>
         <div class="display-area">
-          <div class="body-text">
-          <p>
-            Welcome to your local library. A basic catalog app created in Nodejs/Express
-          </p>
-          </div>
+         
           <div class="home-list">
-            <p><u>Records currently in the library:</u></p>
-            <ul>
-              <% if(error) {%>
-                <p><strong>Couldn't Load Library Data =(</strong></p>
-                <% } %>
-              <% if(data) {%>
-              <li><strong>Books:</strong> <%= data.book_count%></li>
-              <li><strong>Authors:</strong> <%= data.author_count%></li>
-              <li><strong>Book Copies:</strong> <%= data.book_instance_count%></li>
-              <li><strong>Books Available:</strong> <%= data.book_instance_available_count%></li>
-              <li><strong>Genre:</strong> <%= data.genre_count%></li>
+            <p><u>Authors:</u></p>
+            <ul class="Authors">
+              <% for(let i=0; i<author_list.length;i++) {%>
+                
+                <li><a href= <%= author_list[i].url %> > <%= author_list[i].name%></a><br> 
+                    (<%=author_list[i].lifespan %>) 
+
+                </li>
+                <br>
 
               <% } %>
             </ul>

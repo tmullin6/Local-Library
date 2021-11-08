@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+    <head>
+        <title> <%= page %></title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+    </head>
+
+    <body>
+      <div class="header">
+        <p><%= title %></p>
+      </div>
+      
+      <div class="app-body">
+        <div class="vertical-nav-bar">
+            <ul class="nav-list">
+                <li><a href="/catalog">Home</a></li>
+                <li><a href="/catalog/books">View All Books</a></li>
+                <li><a href="/catalog/authors"> View All Authors</a></li>
+                <li><a href="/catalog/genres"> View All Genres</a></li>
+                <li><a href="/catalog/bookinstances"> View All Book-Instances</a></li>
+                <br><br>
+                <li><a href="/catalog/author/create">Create New Author</a></li>
+                <li><a href="/catalog/book/create">Create New Book</a></li>
+                <li><a href="/catalog/bookinstance/create">Create New Book Instance</a></li>
+                <li><a href="/catalog/genre/create">Create New Genre</a></li>
+            </ul>
+        </div>
+        <div class="display-area">
+         
+          <div class="home-list">
+            <h2><%= book.title %></h2>
+            <p><a href=<%= book.author.url %>><%= book.author.name %></a></p>
+            <p><%= book.summary %></p>
+            <p>ISBN: <%= book.isbn %></p>
+            <p>Genres:</p>
+            <ul>
+            <% for(let i=0;i<book.genre.length; i++) { %>
+              <li><a href=<%= book.genre[i].url %>> <%= book.genre[i].name %> </a></li>
+            <% } %>
+            </ul>
+            <br>
+            <h3>Copies:</h3>
+            <ul>
+              <% for(let i=0; i<book_instances.length;i++) {%>
+                
+                <li>
+
+                        <% if(book_instances[i].status==='Available') { %>
+                          <p><%= book_instances[i].imprint%></p>
+                            <span class="Success"> Available</span>
+                        <% } %>
+                        <% if(book_instances[i].status==='Maintenance') { %>
+                          <p><%= book_instances[i].imprint%></p>
+                            <span class="Maintenence"> Book Being Serviced</span>
+                        <% } %>
+                        <% if(book_instances[i].status==='Reserved') { %>
+                          <p><%= book_instances[i].imprint%></p>
+                            <span class="Reserved"> Book on Reserve</span>
+                        <% } %>
+                        <% if(book_instances[i].status==='Loaned') { %>
+                          <p><%= book_instances[i].imprint%></p>
+                            <span class="Loaned"> Book out<br>Due back: <%= book_instances[i].formatted_due_date %></span>
+                        <% } %>
+                        <p>ID: <a href=<%= book_instances[i].url%>><%=book_instances[i]._id %></a></p>
+                </li>
+                <br>
+
+              <% } %>
+            </ul>
+
+          </div>
+
+          <div>
+            
+            <button><a href= <%= book.url+"/update" %>>Update</a></button>
+            <button><a href= <%= book.url+"/delete" %>>Delete</a></button>
+            
+        </div>
+          
+        </div>
+      </div>
+    </body>
+</html>

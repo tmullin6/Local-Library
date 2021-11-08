@@ -29,23 +29,30 @@
             </ul>
         </div>
         <div class="display-area">
-          <div class="body-text">
-          <p>
-            Welcome to your local library. A basic catalog app created in Nodejs/Express
-          </p>
-          </div>
+         
           <div class="home-list">
-            <p><u>Records currently in the library:</u></p>
-            <ul>
-              <% if(error) {%>
-                <p><strong>Couldn't Load Library Data =(</strong></p>
-                <% } %>
-              <% if(data) {%>
-              <li><strong>Books:</strong> <%= data.book_count%></li>
-              <li><strong>Authors:</strong> <%= data.author_count%></li>
-              <li><strong>Book Copies:</strong> <%= data.book_instance_count%></li>
-              <li><strong>Books Available:</strong> <%= data.book_instance_available_count%></li>
-              <li><strong>Genre:</strong> <%= data.genre_count%></li>
+            <p><u>Books in the Library:</u></p>
+            <ul class="Book-Instances">
+              <% for(let i=0; i<bookinstance_list.length;i++) {%>
+                
+                <li><a href= <%= bookinstance_list[i].book.url %> > <%= bookinstance_list[i].book.title%></a> 
+                    <%=bookinstance_list[i].imprint %>- 
+
+                        <% if(bookinstance_list[i].status==='Available') { %>
+                            <span class="Success"> Available</span>
+                        <% } %>
+                        <% if(bookinstance_list[i].status==='Maintenance') { %>
+                            <span class="Maintenence"> Book Being Serviced</span>
+                        <% } %>
+                        <% if(bookinstance_list[i].status==='Reserved') { %>
+                            <span class="Reserved"> Book on Reserve</span>
+                        <% } %>
+                        <% if(bookinstance_list[i].status==='Loaned') { %>
+                            <span class="Loaned"> Book out<br>Due back: <%= bookinstance_list[i].formatted_due_date %></span>
+                        <% } %>
+                
+                </li>
+                <br>
 
               <% } %>
             </ul>

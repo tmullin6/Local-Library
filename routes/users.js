@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   res.render('index',{head:"Users", title: "Here is the User page",body:"This is the second page of my express app"});
 });
 
-router.get('/cool',(req,res,next)=>{
+router.get('/cool',function(req,res,next){
   res.render('index',{head:'Express is COOL',title:'Another route added',body:'This is so cool'})
 });
 

@@ -1,8 +1,97 @@
-body {
-  padding: 50px;
-  font: 25px "Times New Roman", Helvetica, Arial, sans-serif;
+@border: 2px solid black;
+
+body{
+  font-family: 'Times New Roman', Times, serif;
 }
 
-a {
-  color: #00B7FF;
+.header {
+  border-bottom: @border;
+  background-color: #183BF0;
+
+    p{
+      font-size: 40px;
+      color: white;
+      text-shadow: 2px 2px black;
+      padding: 0px;
+      margin-top: 0px;
+      margin-bottom: 10px;
+      padding-left: 10px;
+    } 
+}
+
+.app-body{
+  display: flex;
+  height: 100%;
+}
+
+.vertical-nav-bar {
+
+  height: 600px;
+  width: 250px;
+  font-size: 16px;
+ 
+  border-right: @border;
+  border-bottom:  @border;
+  background-color: #F7EBD4;
+
+  .nav-list{
+  list-style: none;
+  }
+}
+
+.display-area {
+  width: 100%;
+  font-size: 20px;
+  margin-left: 30px;
+
+  .body-text {
+    height: 150px;
+    margin-bottom: 20px;
+  }
+  
+  .home-list {
+    list-style: none;
+  
+  }
+}
+
+.Book-Instances {
+  font-size: 16px;
+
+ 
+}
+
+.Success{
+  color: green;
+}
+
+
+.Available{
+  color: green;
+}
+
+.Maintenence {
+  color: blue;
+}
+
+.Reserved {
+  color: orangered;
+}
+
+.Loaned{
+  color: red;
+}
+
+.author-form{
+  height: 400px;
+  width: 400px;
+  border: 1px solid black;
+  box-shadow: 2px 2px grey;
+
+
+}
+
+.err-message {
+  color: red;
+  font-weight:800;
 }

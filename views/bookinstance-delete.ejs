@@ -29,26 +29,24 @@
             </ul>
         </div>
         <div class="display-area">
-          <div class="body-text">
-          <p>
-            Welcome to your local library. A basic catalog app created in Nodejs/Express
-          </p>
-          </div>
+         
           <div class="home-list">
-            <p><u>Records currently in the library:</u></p>
-            <ul>
-              <% if(error) {%>
-                <p><strong>Couldn't Load Library Data =(</strong></p>
-                <% } %>
-              <% if(data) {%>
-              <li><strong>Books:</strong> <%= data.book_count%></li>
-              <li><strong>Authors:</strong> <%= data.author_count%></li>
-              <li><strong>Book Copies:</strong> <%= data.book_instance_count%></li>
-              <li><strong>Books Available:</strong> <%= data.book_instance_available_count%></li>
-              <li><strong>Genre:</strong> <%= data.genre_count%></li>
+            <h2>ID: <%= bookinstance._id %></h2>
+            <h3>Book: <%= bookinstance.book.title %></h3>
+            <h4>Imprint: <%=bookinstance.imprint%></h4>
+            <h4 class= <%= bookinstance.status%>>Status: <%=bookinstance.status%></h4>
 
-              <% } %>
-            </ul>
+            <br>
+            
+
+                <p class="err-message">Do you really want delete this Book Copy?</p>
+
+                <form method="POST" action="">
+                    <input type="hidden" name="bookinstance_id" required=true value=<%= bookinstance._id%>>
+                    <input type="submit" value="Delete">
+                </form>
+                
+            
           </div>  
           
         </div>

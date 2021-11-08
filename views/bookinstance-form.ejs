@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+    <head>
+        <title> <%= page %></title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet", href="/stylesheets/style.css">
+    </head>
+
+    <body>
+        <div class="header">
+          <p><%= title %></p>
+        </div>
+        
+        <div class="app-body">
+          <div class="vertical-nav-bar">
+              <ul class="nav-list">
+                  <li><a href="/catalog">Home</a></li>
+                  <li><a href="/catalog/books">View All Books</a></li>
+                  <li><a href="/catalog/authors"> View All Authors</a></li>
+                  <li><a href="/catalog/genres"> View All Genres</a></li>
+                  <li><a href="/catalog/bookinstances"> View All Book-Instances</a></li>
+                  <br><br>
+                  <li><a href="/catalog/author/create">Create New Author</a></li>
+                  <li><a href="/catalog/book/create">Create New Book</a></li>
+                  <li><a href="/catalog/bookinstance/create">Create New Book Instance</a></li>
+                  <li><a href="/catalog/genre/create">Create New Genre</a></li>
+              </ul>
+          </div>
+        <div class="display-area">
+            <h1><%= page %></h1>
+        <div class="bookinstance-form">
+            
+            <form method=POST action="">
+
+                <label for="book">Book:</label><br>
+                <select name="book" required=true>
+                    <option></option>
+                    <% for(let i=0;i<books.length;i++) { %>
+                        <option value=<%= books[i]._id%> 
+                            <% if(typeof(bookinstance)=='object' && bookinstance) { %>
+                                <% if(books[i]._id.toString()=== bookinstance.book._id.toString()) {%>
+                                        selected=books[i];
+                                    <% } %>
+                            <% } %>    > <%= books[i].title %></option>
+                    <% } %>
+                </select><br>
+                    
+                    <label for="imprint">Imprint:</label><br>
+                    <input type="text" required=true name="imprint" placeholder="Publisher and Date Information" 
+                    <% if(typeof(bookinstance)=='object' && bookinstance) {  %>
+                        value= "<%= bookinstance.imprint %>" 
+                        <% }%>><br>
+
+                    <label for="due_back">Due Date:</label><br>
+                    <input type="date" required=true name="due_date" placeholder="Enter Due Back Date" 
+                    <% if(typeof(bookinstance)=='object' && bookinstance) {  %>
+                        value=<%= bookinstance.due_back_form %> 
+                        <% }%>><br>
+
+                    <label for="status">Status:</label><br>
+                    <select name="status" required=true placeholder="Select Book Status">
+                        <option></option>
+                        <option value="Maintenance"
+                         <% if(typeof(bookinstance)=='object'&& bookinstance.status=='Maintenance') { %>
+                            selected
+                            <% } %>>Maintenance</option>
+                        <option value="Available" <% if(typeof(bookinstance)=='object'&& bookinstance.status=='Available') { %>
+                            selected
+                            <% } %>>Available</option>
+                        <option value="Reserved" <% if(typeof(bookinstance)=='object'&& bookinstance.status=='Reserved') { %>
+                            selected
+                            <% } %>>Reserved</option>
+                        <option value="Loaned" <% if(typeof(bookinstance)=='object'&& bookinstance.status=='Loaned') { %>
+                            selected
+                            <% } %>>Loaned</option>
+                    </select><br>
+                        
+                <input type="submit">
+            </form>
+
+            <% if(typeof(errors)=='object' && errors.length>0) { %>
+                <ul>
+                    <% for(let i=0;i<errors.length;i++) {%>
+                        <li><%= errors[i].msg %></li>
+                    <% }%>
+                </ul>
+
+                <% }%>
+        </div>
+        </div>
+        </div>
+    </body>
+</html>

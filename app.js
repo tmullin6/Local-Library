@@ -9,8 +9,13 @@ const mongoose = require('mongoose');
 //import code to handle routes
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const catalogRouter = require('./routes/catalog');
+const compression = require('compression');
+const helmet = require('helmet');
 
 const app = express();
+
+app.use(helmet());
 
 //Set up connection to mongoDB cluster using connection string
 const mongoDB='mongodb+srv://tmullin6:librarydb@library.pnox3.mongodb.net/local_library?retryWrites=true&w=majority';
@@ -35,6 +40,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(compression());
+
 //Middleware to handle LESS preprocessor
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 
@@ -44,6 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Set up app to use the previously imported router code
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/catalog',catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
