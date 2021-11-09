@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const lessMiddleware = require('less-middleware');
 const logger = require('morgan');
+require('dotenv').config();
 const mongoose = require('mongoose');
 
 //import code to handle routes
@@ -18,7 +19,7 @@ const app = express();
 app.use(helmet());
 
 //Set up connection to mongoDB cluster using connection string
-const mongoDB='mongodb+srv://tmullin6:librarydb@library.pnox3.mongodb.net/local_library?retryWrites=true&w=majority';
+const mongoDB=process.env.DB_CONNECT_STRING; 
 mongoose.connect(mongoDB,{useNewUrlParser: true, useUnifiedTopology: true});
 
 //Set up default connection
